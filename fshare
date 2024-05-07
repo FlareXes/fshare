@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+trap 'echo "Ctrl+C detected. Exiting..."; exit 1' SIGINT
+
+LOCATION="$@"
+
+# Check if session type is Wayland or not
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    CLIPBOARD_COMMAND="wl-copy"
+else
+    CLIPBOARD_COMMAND="xclip -selection clipboard"
+fi
+
+# If no location is provided, default to home directory
+if [[ $LOCATION == "" ]]; then
+    LOCATION="$HOME"
+fi
+
+# If no argument passed then prompt the user to select a file using `fzf`
+if [[ -f $LOCATION ]]; then
+    file_to_upload=$LOCATION
+else
+    file_to_upload=$(find $LOCATION -type f 2>/dev/null | fzf -i) || exit 1
+fi
+
+# Upload file to 0x0.st and retrieve response
+resp=$(curl -i -sS -F "expires=1" -F "file=@$file_to_upload" https://0x0.st)
+
+token=$(printf "$resp" | grep -oP 'x-token: \K[^[:space:]]+')
+url=$(printf "$resp" | grep -oP "https://0x0\.st\S+")
+
+# Print instructions for deleting the file
+if [[ "$token" != "" ]]; then
+    printf "To delete the file immediately:\n    curl -F token=$token -F delete= $url"
+    printf "curl -F token=$token -F delete= $url\n" >> "$HOME/.fshare"
+else
+    printf "To delete the file: \n    check your history at: $HOME/.fshare"
+fi
+
+# Copy the URL to clipboard and echo it
+printf "$url" | $CLIPBOARD_COMMAND; printf "\n\n$url\n"
