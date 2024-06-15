@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+#
+# Author: FlareXes
+# License: MIT
+# Project URL: https://github.com/FlareXes/fshare
 
 trap 'echo "Ctrl+C detected. Exiting..."; exit 1' SIGINT
 
