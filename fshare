@@ -7,6 +7,7 @@
 trap 'echo "Ctrl+C detected. Exiting..."; exit 1' SIGINT
 
 LOCATION="$@"
+EXPIRES="24"    # IN HOURS
 
 # Check if session type is Wayland or not
 if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
@@ -28,7 +29,7 @@ else
 fi
 
 # Upload file to 0x0.st and retrieve response
-resp=$(curl -i -sS -F "expires=1" -F "file=@$file_to_upload" https://0x0.st)
+resp=$(curl -i -sS -F "expires=$EXPIRES" -F "file=@$file_to_upload" https://0x0.st)
 
 token=$(printf "$resp" | grep -oP 'x-token: \K[^[:space:]]+')
 url=$(printf "$resp" | grep -oP "https://0x0\.st\S+")
