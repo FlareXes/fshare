@@ -1,6 +1,6 @@
 # File Share (fshare)
 
-**FShare** is a command-line utility for file sharing. It automatically copies the upload URL to your clipboard for easy sharing. You can also set deletion period of the uploaded file default one hour, or delete it immediately.
+**FShare** is a command-line utility for file sharing. It automatically copies the upload URL to your clipboard for easy sharing. You can also set deletion period of the uploaded file default 24-hours, or delete it immediately.
 
 ## Features
 
