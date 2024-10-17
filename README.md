@@ -1,11 +1,13 @@
 # <center>File Share (fshare)</center>
 
 <p align="center">
-    <strong>FShare</strong> is a command-line utility for file sharing. It automatically copies the upload URL to your clipboard for easy sharing. You can set a deletion period for the uploaded file (default is 24 hours) or delete it immediately.
+    <strong>FShare</strong> is a command-line utility for file sharing. <br>You can set a deletion period for the uploaded file (default is 24 hours) or delete it immediately.
 </p>
 
+*<p align="center">XOrg / Wayland Compatible</p>*
+
 <p align="center">
-    <img src="./demo.gif" alt="Demo GIF" />
+    <img width="560" src="./demo.gif" alt="Demo GIF" />
 </p>
 
 
